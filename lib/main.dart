@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:tastytakeout_user_app/views/screens/menu_add_food_screen.dart';
 import 'package:tastytakeout_user_app/views/screens/store_screen.dart';
 import '/views/screens/mainhome_screen.dart';
 import '/views/screens/orders_screen.dart';
@@ -40,8 +41,8 @@ class HomeController extends GetxController {
 
   final pages = <String>[
     '/main_home',
-    '/store',
     '/orders',
+    '/menu',
     '/chat',
   ];
 
@@ -60,7 +61,7 @@ class HomeController extends GetxController {
       );
     }
 
-    if (settings.name == '/store') {
+    if (settings.name == '/menu') {
       return GetPageRoute(
         settings: settings,
         page: () => StorePage(),
@@ -107,12 +108,12 @@ class HomePage extends GetView<HomeController> {
                 label: 'Home',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.store),
-                label: 'Store',
-              ),
-              BottomNavigationBarItem(
                 icon: Icon(Icons.delivery_dining_sharp),
                 label: 'Orders',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.store),
+                label: 'Menu',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.mark_chat_unread),

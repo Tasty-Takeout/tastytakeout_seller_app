@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1037192182143",
+    "project_id": "tastytakout",
+    "storage_bucket": "tastytakout.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1037192182143:android:7241112d8dd5899e04c24a",
+        "android_client_info": {
+          "package_name": "com.example.tastytakeout_seller_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2LEGUBHtEkN1YMLTX8obW_z5J7UjIk8M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

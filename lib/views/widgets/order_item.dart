@@ -48,7 +48,7 @@ class OrderItemWidget extends GetWidget {
         },
         child: Obx(
           () => Card(
-            elevation: 4.0,
+            elevation: 2.0,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12.0),
             ),

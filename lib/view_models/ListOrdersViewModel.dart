@@ -45,7 +45,7 @@ class ListOrdersViewModel extends GetxController {
         await OrdersSource().fetchSingleOrder(filteredOrderList[index].orderId);
 
     if (_fullInfoOrder.orderId != -1) {
-      filteredOrderList[index] = _fullInfoOrder;
+      filteredOrderList[index].foods = _fullInfoOrder.foods;
     }
   }
 

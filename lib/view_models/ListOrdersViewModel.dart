@@ -29,10 +29,8 @@ class ListOrdersViewModel extends GetxController {
       isLoading.value = true;
     }
 
-    if (needRefresh.value) {
-      orderList.value = await OrdersSource().fetchOrders();
-      needRefresh.value = false;
-    }
+    orderList.value = await OrdersSource().fetchOrders();
+
     filterOrdersByStatus();
     isLoading.value = false;
   }

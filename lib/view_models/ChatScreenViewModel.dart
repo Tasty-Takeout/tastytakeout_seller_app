@@ -11,7 +11,7 @@ class ChatScreenViewModel extends GetxController {
   var isLoading = true.obs;
   var chatList = RxList<ChatModel>();
   var chatListDate = RxList<String>();
-  final BASE_URL = '${serverIp}/chat';
+  final BASE_URL = 'http://${serverIp}/chat';
 
   @override
   void onInit() {

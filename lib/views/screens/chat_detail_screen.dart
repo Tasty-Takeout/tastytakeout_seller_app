@@ -27,10 +27,15 @@ class ChatDetailScreen extends StatelessWidget {
     buyerName = args['buyer_name'];
     buyerImage = args['buyer_image_url'];
     storeImage = args['store_image_url'];
-    chatDetailScreenViewModel = Get.put(ChatDetailScreenViewModel(chatRoomId, storeImage, buyerImage));
+    chatDetailScreenViewModel =
+        Get.put(ChatDetailScreenViewModel(chatRoomId, storeImage, buyerImage));
     return Scaffold(
       appBar: AppBar(
-        title: Text(buyerName, style: TextStyle(color: Colors.black), overflow: TextOverflow.ellipsis,),
+        title: Text(
+          buyerName,
+          style: TextStyle(color: Colors.black),
+          overflow: TextOverflow.ellipsis,
+        ),
         actions: [
           Container(
             margin: EdgeInsets.only(right: 10),
@@ -45,7 +50,7 @@ class ChatDetailScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Obx(
-                () {
+            () {
               if (chatDetailScreenViewModel.isLoading.value) {
                 return Expanded(
                     child: Center(child: CircularProgressIndicator()));
@@ -58,12 +63,12 @@ class ChatDetailScreen extends StatelessWidget {
                       reverse: true,
                       controller: chatDetailScreenViewModel.scrollController,
                       itemCount:
-                      chatDetailScreenViewModel.chatMessage.length + 1,
+                          chatDetailScreenViewModel.chatMessage.length + 1,
                       itemBuilder: (context, index) {
                         if (index > 0) {
                           return ChatBubble(
-                            messageModel:
-                            chatDetailScreenViewModel.chatMessage[index - 1],
+                            messageModel: chatDetailScreenViewModel
+                                .chatMessage[index - 1],
                           );
                         } else {
                           return ChatTypingAnimation();
@@ -81,7 +86,7 @@ class ChatDetailScreen extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return ChatBubble(
                           messageModel:
-                          chatDetailScreenViewModel.chatMessage[index],
+                              chatDetailScreenViewModel.chatMessage[index],
                         );
                       },
                     ),
@@ -122,10 +127,10 @@ class ChatDetailScreen extends StatelessWidget {
                   IconButton(
                     icon: Icon(Icons.send),
                     onPressed: () {
-                      String temp = chatDetailScreenViewModel.messageController.text;
+                      String temp =
+                          chatDetailScreenViewModel.messageController.text;
                       chatDetailScreenViewModel.messageController.text = '';
-                      chatDetailScreenViewModel
-                          .sendMessage(temp);
+                      chatDetailScreenViewModel.sendMessage(temp);
                       // chatDetailScreenViewModel.scrollToTop(300);
                     },
                   ),

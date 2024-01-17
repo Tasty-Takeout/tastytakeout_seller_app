@@ -133,14 +133,20 @@ class _OrdersViewState extends State<OrdersView> {
                   ],
                 ));
               } else {
-                return ListView.builder(
-                  padding: EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 8.0),
-                  itemCount: _ordersController
-                      .listOrdersViewModel.filteredOrderList.length,
-                  itemBuilder: (context, index) {
-                    return OrderItemWidget(index: index, isClickable: true);
-                  },
-                );
+                return RefreshIndicator(
+                    onRefresh: () async {
+                      _ordersController.listOrdersViewModel.fetchOrders();
+                      _ordersController.listOrdersViewModel
+                          .filterOrdersByStatus();
+                    },
+                    child: ListView.builder(
+                      padding: EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 8.0),
+                      itemCount: _ordersController
+                          .listOrdersViewModel.filteredOrderList.length,
+                      itemBuilder: (context, index) {
+                        return OrderItemWidget(index: index, isClickable: true);
+                      },
+                    ));
               }
             },
           ),

@@ -90,6 +90,8 @@ class _OrdersViewState extends State<OrdersView> {
                                   .listOrdersViewModel.selectedStatus
                                   .add(type);
                               _ordersController.listOrdersViewModel
+                                  .fetchOrders();
+                              _ordersController.listOrdersViewModel
                                   .filterOrdersByStatus();
                             });
                           },

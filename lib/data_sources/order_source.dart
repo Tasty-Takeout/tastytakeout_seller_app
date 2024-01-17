@@ -135,17 +135,9 @@ class OrdersSource {
               int quantity = foodItem['quantity'];
               int total = foodItem['total'];
 
-              FoodModel _food =
-                  await FoodSource().getSimpleFoodDataById(foodId);
-
               foods.add(FoodModel(
                 id: foodId,
-                name: _food.name,
-                price: _food.price,
                 quantity: quantity,
-                storeId: _food.storeId,
-                storeName: _food.storeName,
-                imageUrls: _food.imageUrls,
               ));
             }
 

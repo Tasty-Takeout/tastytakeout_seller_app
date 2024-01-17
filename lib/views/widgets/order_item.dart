@@ -80,7 +80,7 @@ class OrderItemWidget extends GetWidget {
                               'Số món: ${_listOrdersViewModel.filteredOrderList[index].getQuantity()}'),
                           Text(
                               '${data.paymentMap[_listOrdersViewModel.filteredOrderList[index].paymentMethod]}: '
-                              '${formatHelper.formatMoney(_listOrdersViewModel.filteredOrderList[index].calculatePrice())}'),
+                              '${formatHelper.formatMoney(_listOrdersViewModel.filteredOrderList[index].price)}'),
                         ],
                       ),
                       Expanded(child: Container()),

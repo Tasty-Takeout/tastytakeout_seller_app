@@ -90,6 +90,7 @@ class ReceiveOrderPage extends StatelessWidget {
                           },
                           onCancelBtnTap: () {
                             Get.back();
+                            Get.back();
                           },
                         );
                       },

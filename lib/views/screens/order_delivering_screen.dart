@@ -49,7 +49,7 @@ class DeliveringOrderPage extends StatelessWidget {
                 ),
                 SizedBox(width: 20),
                 Text(
-                  '${formatHelper.formatSeperateMoney(_listOrdersViewModel.filteredOrderList[index].calculatePrice())}',
+                  '${formatHelper.formatSeperateMoney(_listOrdersViewModel.filteredOrderList[index].price)}',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
@@ -94,9 +94,10 @@ class DeliveringOrderPage extends StatelessWidget {
                     ),
                     child: TextButton(
                       onPressed: () async {
-                        _listOrdersViewModel.filteredOrderList[index]
-                            .status = data.COMPLETED;
-                        var result = await _listOrdersViewModel.syncOrderInfo(index);
+                        _listOrdersViewModel.filteredOrderList[index].status =
+                            data.COMPLETED;
+                        var result =
+                            await _listOrdersViewModel.syncOrderInfo(index);
                         // call api to update status
                         Get.back();
                       },

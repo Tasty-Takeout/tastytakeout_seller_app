@@ -49,7 +49,7 @@ class PrepareOrderPage extends StatelessWidget {
                 ),
                 SizedBox(width: 20),
                 Text(
-                  '${formatHelper.formatSeperateMoney(_listOrdersViewModel.filteredOrderList[index].calculatePrice())}',
+                  '${formatHelper.formatSeperateMoney(_listOrdersViewModel.filteredOrderList[index].price)}',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,

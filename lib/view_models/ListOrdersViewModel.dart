@@ -38,6 +38,8 @@ class ListOrdersViewModel extends GetxController {
   void filterOrdersByStatus() {
     filteredOrderList.value =
         orderList.where((order) => order.status == selectedStatus[0]).toList();
+
+    filteredOrderList.refresh();
   }
 
   Future<void> fetchOrderById(int index) async {

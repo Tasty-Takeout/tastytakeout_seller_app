@@ -7,13 +7,15 @@ import 'package:tastytakeout_user_app/models/dto/ChatModel.dart';
 import 'package:tastytakeout_user_app/view_models/ChatScreenViewModel.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
+import '../globals.dart';
 import '../models/dto/MessageModel.dart';
 
 class ChatDetailScreenViewModel extends GetxController {
   var chatMessage = RxList<MessageModel>();
-  final BASE_URL = 'http://10.0.2.2:8000/chat/';
-  final BASE_URL_WS = 'ws://10.0.2.2:8000/ws/chat/';
-  String token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxODg2MDAyNDYwLCJpYXQiOjE3MDQ1NjI0NjAsImp0aSI6ImNmNzVkMmQ0MWY2NDQzZjg4M2M1NmJkNzU2NWI5NDk2IiwidXNlcl9pZCI6MTEsInJvbGUiOiJTRUxMRVIiLCJzdG9yZV9pZCI6Mn0.ewntBGHVz4Grgs5tb3JQqiZMkPwcrwNDHeavAgBLDSo';
+  final BASE_URL = 'http://${serverIp}/chat/';
+  final BASE_URL_WS = 'ws://${serverIp}/ws/chat/';
+  String token =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxODg2MDAyNDYwLCJpYXQiOjE3MDQ1NjI0NjAsImp0aSI6ImNmNzVkMmQ0MWY2NDQzZjg4M2M1NmJkNzU2NWI5NDk2IiwidXNlcl9pZCI6MTEsInJvbGUiOiJTRUxMRVIiLCJzdG9yZV9pZCI6Mn0.ewntBGHVz4Grgs5tb3JQqiZMkPwcrwNDHeavAgBLDSo';
   String chatRoom = '';
   late WebSocketChannel channel;
   final ScrollController scrollController = ScrollController();
@@ -24,7 +26,8 @@ class ChatDetailScreenViewModel extends GetxController {
   var partnerIsTyping = false.obs;
   bool sended = false;
 
-  ChatDetailScreenViewModel(String chatRoom, String sender_url, String receiver_url) {
+  ChatDetailScreenViewModel(
+      String chatRoom, String sender_url, String receiver_url) {
     this.chatRoom = chatRoom;
     this.sender_url = sender_url;
     this.receiver_url = receiver_url;
@@ -36,7 +39,7 @@ class ChatDetailScreenViewModel extends GetxController {
         if (sended == false) {
           sended = true;
           sendMessage(''); // Send empty message to server
-        }// Send empty message to server
+        } // Send empty message to server
       } else {
         if (sended == true) {
           sended = false;
@@ -82,14 +85,15 @@ class ChatDetailScreenViewModel extends GetxController {
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
           'Accept-Charset': 'UTF-8',
-          'Authorization' : 'Bearer ' + token
+          'Authorization': 'Bearer ' + token
         },
       );
       if (response.statusCode != 200) {
         throw Exception('Error fetching chat messages');
       } else {
         List<dynamic> json = jsonDecode(utf8.decode(response.bodyBytes));
-        chatMessage.value.insertAll(0,json.map((e) => MessageModel.fromJson(e)).toList());
+        chatMessage.value
+            .insertAll(0, json.map((e) => MessageModel.fromJson(e)).toList());
         chatMessage.value = chatMessage.value.reversed.toList();
       }
     } catch (e) {
@@ -103,7 +107,7 @@ class ChatDetailScreenViewModel extends GetxController {
     final url = Uri.parse(BASE_URL + chatRoom + '/');
     final headers = {
       'Content-Type': 'application/json; charset=UTF-8',
-      'Authorization' : 'Bearer ' + token
+      'Authorization': 'Bearer ' + token
     };
     final jsonBody = json.encode({
       'message': message,
@@ -126,7 +130,8 @@ class ChatDetailScreenViewModel extends GetxController {
     channel.stream.handleError((error) {
       print('Có lỗi xảy ra: $error');
     }).listen((message) {
-      MessageModel messageModel = MessageModel.fromJsonWithoutImage(jsonDecode(message));
+      MessageModel messageModel =
+          MessageModel.fromJsonWithoutImage(jsonDecode(message));
       if (messageModel.message.length == 0) {
         if (messageModel.sender == 'BUYER')
           partnerIsTyping.value = !partnerIsTyping.value;
@@ -154,7 +159,7 @@ class ChatDetailScreenViewModel extends GetxController {
   }
 
   void sendMessage(String text) {
-    final message = json.encode({'message': text,'role' : 'STORE'});
+    final message = json.encode({'message': text, 'role': 'STORE'});
     if (text.length > 0) {
       postChatMessage(text);
     }
@@ -171,7 +176,4 @@ class ChatDetailScreenViewModel extends GetxController {
   void onReady() {
     super.onReady();
   }
-
-
 }
-

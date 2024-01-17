@@ -1,3 +1,4 @@
+import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tastytakeout_user_app/views/screens/order_complete_screen.dart';
@@ -85,10 +86,22 @@ class OrderItemWidget extends GetWidget {
                       Expanded(child: Container()),
                       GestureDetector(
                         onTap: () {
-                          _listOrdersViewModel.filteredOrderList[index]
-                              .getNextStatus();
-                          var result =
-                              _listOrdersViewModel.syncOrderInfo(index);
+                          CoolAlert.show(
+                            context: context,
+                            type: CoolAlertType.confirm,
+                            title: "Xác nhận",
+                            text: "Chắc chắn muốn chuyển tiếp đơn?",
+                            confirmBtnColor: Colors.green,
+                            cancelBtnText: "Hủy",
+                            confirmBtnText: "Xác nhận",
+                            onConfirmBtnTap: () {
+                              // call api to reject order
+                              _listOrdersViewModel.filteredOrderList[index]
+                                  .getNextStatus();
+                              var result =
+                                  _listOrdersViewModel.syncOrderInfo(index);
+                            },
+                          );
                         },
                         child: Container(
                           width: 50.0,

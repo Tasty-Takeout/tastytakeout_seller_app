@@ -47,7 +47,8 @@ class ChatPage extends StatelessWidget {
                     return Ink(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.0),
-                        color: Color(0xff73b5c9),
+                        //color: Color(0xff73b5c9),
+                        color: Colors.white,
                       ),
                       child: InkWell(
                         overlayColor:

@@ -17,42 +17,49 @@ class ChatItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: Row(
-          children: [
-            CircleAvatar(
-              backgroundImage: NetworkImage(UserImage),
-              maxRadius: 30,
-            ),
-            SizedBox(
-              width: 16,
-            ),
-            Expanded(
-              child: Container(
-                color: Colors.transparent,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(UserName),
-                    SizedBox(
-                      height: 2,
-                    ),
-                    Text(
-                      UserMessage,
-                      style:
-                      TextStyle(fontSize: 14, color: Colors.grey.shade700),
-                      maxLines: 2,
-                      overflow: TextOverflow.clip,
-                    ),
-                  ],
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              CircleAvatar(
+                backgroundImage: NetworkImage(UserImage),
+                maxRadius: 30,
+              ),
+              SizedBox(
+                width: 16,
+              ),
+              Expanded(
+                child: Container(
+                  color: Colors.transparent,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(UserName),
+                      SizedBox(
+                        height: 2,
+                      ),
+                      Text(
+                        UserMessage,
+                        style: TextStyle(
+                            fontSize: 14, color: Colors.grey.shade700),
+                        maxLines: 2,
+                        overflow: TextOverflow.clip,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Text(
-              UserTime,
-              style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
-            ),
-          ],
-        ));
+              Text(
+                UserTime,
+                style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
+              ),
+            ],
+          ),
+          SizedBox(height: 10),
+          Divider()
+        ],
+      ),
+    );
   }
 }

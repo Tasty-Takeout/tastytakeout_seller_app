@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart';
+import 'package:tastytakeout_user_app/globals.dart';
 
 import '../helper/date_helper.dart';
 import '../models/dto/ChatModel.dart';
@@ -10,7 +11,7 @@ class ChatScreenViewModel extends GetxController {
   var isLoading = true.obs;
   var chatList = RxList<ChatModel>();
   var chatListDate = RxList<String>();
-  final BASE_URL = 'http://10.0.2.2:8000/chat';
+  final BASE_URL = '${serverIp}/chat';
 
   @override
   void onInit() {
@@ -20,7 +21,8 @@ class ChatScreenViewModel extends GetxController {
 
   void formatChatListDate() {
     for (int i = 0; i < chatList.value.length; i++) {
-      chatList.value[i].created_at = DateTime.parse(chatList.value[i].newest_message_time);
+      chatList.value[i].created_at =
+          DateTime.parse(chatList.value[i].newest_message_time);
       Date date = DateHelper.getDate(chatList.value[i].created_at!);
       if (date == Date.TODAY) {
         chatListDate.value.add('Today');
@@ -38,13 +40,12 @@ class ChatScreenViewModel extends GetxController {
   Future<void> fetchChatList() async {
     try {
       isLoading(true);
-      final response = await get(
-        Uri.parse(BASE_URL),
-        headers: {
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Accept-Charset': 'UTF-8',
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxODg2MDAyNDYwLCJpYXQiOjE3MDQ1NjI0NjAsImp0aSI6ImNmNzVkMmQ0MWY2NDQzZjg4M2M1NmJkNzU2NWI5NDk2IiwidXNlcl9pZCI6MTEsInJvbGUiOiJTRUxMRVIiLCJzdG9yZV9pZCI6Mn0.ewntBGHVz4Grgs5tb3JQqiZMkPwcrwNDHeavAgBLDSo'
-        });
+      final response = await get(Uri.parse(BASE_URL), headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Accept-Charset': 'UTF-8',
+        'Authorization':
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxODg2MDAyNDYwLCJpYXQiOjE3MDQ1NjI0NjAsImp0aSI6ImNmNzVkMmQ0MWY2NDQzZjg4M2M1NmJkNzU2NWI5NDk2IiwidXNlcl9pZCI6MTEsInJvbGUiOiJTRUxMRVIiLCJzdG9yZV9pZCI6Mn0.ewntBGHVz4Grgs5tb3JQqiZMkPwcrwNDHeavAgBLDSo'
+      });
       if (response.statusCode != 200) {
         throw Exception('Error fetching chat list');
       } else {

@@ -174,7 +174,7 @@ class _MenuFoodPageState extends State<MenuFoodPage> {
                             createdAt: DateTime.now().toString(),
                           ));
                           // call api here
-
+                          _foodController.fetchFoodMenu();
                           Get.back();
                         },
                         style: ElevatedButton.styleFrom(
@@ -207,7 +207,7 @@ class _MenuFoodPageState extends State<MenuFoodPage> {
                             createdAt: DateTime.now().toString(),
                           ));
                           // call api here
-
+                          _foodController.fetchFoodMenu();
                           Get.back();
                         },
                         style: ElevatedButton.styleFrom(

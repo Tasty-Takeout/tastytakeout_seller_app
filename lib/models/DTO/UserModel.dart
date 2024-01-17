@@ -10,7 +10,7 @@ class UserModel {
   late String gender;
 
   UserModel({
-    this.storeId = 0,
+    this.storeId = -1,
     this.username = '',
     this.email = '',
     this.avatar_url = '',

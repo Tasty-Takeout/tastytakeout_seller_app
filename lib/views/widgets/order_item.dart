@@ -100,6 +100,8 @@ class OrderItemWidget extends GetWidget {
                                   .getNextStatus();
                               var result =
                                   _listOrdersViewModel.syncOrderInfo(index);
+
+                              _listOrdersViewModel.filterOrdersByStatus();
                             },
                           );
                         },

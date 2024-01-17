@@ -14,54 +14,13 @@ import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_drawer.dart';
 import '../widgets/custom_text_box.dart';
 
-class AddFoodController extends GetxController {
-  final title = 'FoodInfo'.obs;
-  var foodModel = FoodModel().obs;
-  var isLoaded = true.obs;
-  final ListFoodMenuViewModel listFoodMenuViewModel = Get.find();
-
+class MenuFoodPage extends StatefulWidget {
   @override
-  void onInit() {
-    super.onInit();
-    listFoodMenuViewModel.fetchFoodMenu();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-    listFoodMenuViewModel.fetchFoodMenu();
-  }
-
-  Future<void> getFoodInfo() async {
-    //userModel.value = await UserSource().getUserInfo();
-    foodModel.value = FoodModel();
-    isLoaded.value = true;
-  }
-
-  Future<void> updateFoodInfo() async {
-    //var res = await UserSource().patchUserInfo(userModel.value);
-    getFoodInfo();
-  }
-
-  void addFood(FoodModel food) {
-    listFoodMenuViewModel.addFood(food);
-  }
+  _MenuFoodPageState createState() => _MenuFoodPageState();
 }
 
-class AddFoodBinding extends Bindings {
-  @override
-  void dependencies() {
-    Get.lazyPut(() => AddFoodController());
-  }
-}
-
-class AddFoodPage extends StatefulWidget {
-  @override
-  _AddFoodPageState createState() => _AddFoodPageState();
-}
-
-class _AddFoodPageState extends State<AddFoodPage> {
-  final AddFoodController _foodController = Get.find<AddFoodController>();
+class _MenuFoodPageState extends State<MenuFoodPage> {
+  final _foodController = Get.put(ListFoodMenuViewModel());
   late ImagePicker _imagePicker;
   late XFile _pickedFile;
   late bool _isPicked = false;
@@ -102,16 +61,16 @@ class _AddFoodPageState extends State<AddFoodPage> {
       ),
       body: Obx(
         () {
-          if (_foodController.isLoaded.value == false) {
+          if (_foodController.isLoading.value == true) {
             return Center(
               child: CircularProgressIndicator(),
             );
           } else {
-            _nameController.text = _foodController.foodModel.value.name;
-            _priceController.text =
-                formatSeperateMoney(_foodController.foodModel.value.price);
+            _nameController.text = _foodController.singleFoodUpdated.value.name;
+            _priceController.text = formatSeperateMoney(
+                _foodController.singleFoodUpdated.value.price);
             _descriptionController.text =
-                _foodController.foodModel.value.description;
+                _foodController.singleFoodUpdated.value.description;
 
             return SingleChildScrollView(
               child: Column(
@@ -132,7 +91,7 @@ class _AddFoodPageState extends State<AddFoodPage> {
                                 )
                               : DecorationImage(
                                   image: NetworkImage(_foodController
-                                      .foodModel.value.imageUrls[0]),
+                                      .singleFoodUpdated.value.imageUrls[0]),
                                   fit: BoxFit.cover,
                                 ),
                         ),
@@ -201,37 +160,74 @@ class _AddFoodPageState extends State<AddFoodPage> {
                     ),
                   ),
                   SizedBox(height: 30),
-                  ElevatedButton(
-                    onPressed: () {
-                      _foodController.addFood(FoodModel(
-                        name: _nameController.text,
-                        storeId: _foodController
-                            .listFoodMenuViewModel.foodList.value[0].storeId,
-                        price: formatRemoveSeperateMoney(_priceController.text),
-                        description: _descriptionController.text,
-                        imageUrls: [_pickedFile.path],
-                        createdAt: DateTime.now().toString(),
-                      ));
-                      // call api here
+                  Obx(() {
+                    if (_foodController.singleFoodUpdated.value.id == -1) {
+                      return ElevatedButton(
+                        onPressed: () {
+                          _foodController.addFood(FoodModel(
+                            name: _nameController.text,
+                            storeId: _foodController.foodList.value[0].storeId,
+                            price: formatRemoveSeperateMoney(
+                                _priceController.text),
+                            description: _descriptionController.text,
+                            imageUrls: [_pickedFile.path],
+                            createdAt: DateTime.now().toString(),
+                          ));
+                          // call api here
 
-                      Get.back();
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.green,
-                    ),
-                    child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 50, vertical: 12),
-                      child: Text(
-                        "Thêm món",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white70,
+                          Get.back();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.green,
                         ),
-                      ),
-                    ),
-                  ),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 50, vertical: 12),
+                          child: Text(
+                            "Thêm món",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white70,
+                            ),
+                          ),
+                        ),
+                      );
+                    } else {
+                      return ElevatedButton(
+                        onPressed: () {
+                          _foodController.updateFood(FoodModel(
+                            id: _foodController.singleFoodUpdated.value.id,
+                            name: _nameController.text,
+                            storeId: _foodController.foodList.value[0].storeId,
+                            price: formatRemoveSeperateMoney(
+                                _priceController.text),
+                            description: _descriptionController.text,
+                            imageUrls: [_pickedFile.path],
+                            createdAt: DateTime.now().toString(),
+                          ));
+                          // call api here
+
+                          Get.back();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.green,
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 50, vertical: 12),
+                          child: Text(
+                            "Cập nhật",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white70,
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+                  })
                 ],
               ),
             );

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tastytakeout_user_app/models/DTO/FoodModel.dart';
 import 'package:tastytakeout_user_app/view_models/ListFoodMenuViewModel.dart';
-import 'package:tastytakeout_user_app/views/screens/menu_add_food_screen.dart';
+import 'package:tastytakeout_user_app/views/screens/menu_update_food_screen.dart';
 
 import 'package:tastytakeout_user_app/views/widgets/custom_app_bar.dart';
 import '../widgets/custom_drawer.dart';
@@ -115,8 +116,9 @@ class StorePage extends StatelessWidget {
                     ),
                     child: TextButton(
                       onPressed: () {
-                        Get.put(AddFoodController());
-                        Get.to(() => AddFoodPage());
+                        storeController.listFoodMenuViewModel.singleFoodUpdated
+                            .value = FoodModel();
+                        Get.to(() => MenuFoodPage());
                       },
                       child: Text(
                         'Thêm món',

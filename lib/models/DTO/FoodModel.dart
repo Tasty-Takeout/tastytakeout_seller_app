@@ -48,7 +48,7 @@ class FoodModel {
   final String shopName;
 
   FoodModel({
-    this.id = 0,
+    this.id = -1,
     this.name = '',
     this.description = '',
     this.price = 0,

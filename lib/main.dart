@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:tastytakeout_user_app/views/screens/menu_add_food_screen.dart';
+import 'package:tastytakeout_user_app/views/screens/menu_update_food_screen.dart';
 import 'package:tastytakeout_user_app/service/firebase_messaging.dart';
 import 'package:tastytakeout_user_app/views/screens/store_screen.dart';
 import '/views/screens/mainhome_screen.dart';

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:tastytakeout_user_app/view_models/ListFoodMenuViewModel.dart';
 import '../../models/DTO/FoodModel.dart';
 import '../../helper/format_helper.dart' as formatHelper;
+import '../screens/menu_update_food_screen.dart';
 
 class MenuFoodItemWidget extends StatelessWidget {
   late int foodIndex;
@@ -104,9 +105,11 @@ class MenuFoodItemWidget extends StatelessWidget {
                                     },
                                   );
                                 } else if (value == 'edit') {
-                                  Get.toNamed('/edit_food',
-                                      arguments: _listFoodMenuViewModel
-                                          .foodList[foodIndex]);
+                                  _listFoodMenuViewModel
+                                          .singleFoodUpdated.value =
+                                      _listFoodMenuViewModel
+                                          .foodList[foodIndex];
+                                  Get.to(() => MenuFoodPage());
                                 }
                               },
                             ),

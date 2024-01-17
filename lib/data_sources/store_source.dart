@@ -194,4 +194,26 @@ class StoreSource {
       print('Exception during request Store: $e');
     }
   }
+
+  Future<void> updateFood(FoodModel food) async {
+    try {
+      final response = await http.patch(
+        Uri.http(serverIp, '/foods/${food.id}/'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ${await getAccessToken()}',
+        },
+        body: jsonEncode(food.toMapJson()),
+      );
+
+      if (response.statusCode == 201) {
+        print('Food delete successfully');
+      } else {
+        print('Request failed with status: ${response.statusCode}');
+        print('Response body: ${response.body}');
+      }
+    } catch (e) {
+      print('Exception during request Store: $e');
+    }
+  }
 }

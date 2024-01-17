@@ -5,6 +5,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:tastytakeout_user_app/views/screens/menu_add_food_screen.dart';
 import 'package:tastytakeout_user_app/service/firebase_messaging.dart';
 import 'package:tastytakeout_user_app/views/screens/store_screen.dart';
 import '/views/screens/mainhome_screen.dart';
@@ -26,7 +28,6 @@ Future<void> _handelMessage(RemoteMessage message) async {
 }
 
 void main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
@@ -46,6 +47,9 @@ void main() async {
 
   runApp(GetMaterialApp(
     title: 'Tasty Takeout',
+    theme: ThemeData(
+      fontFamily: GoogleFonts.poppins().fontFamily,
+    ),
     debugShowCheckedModeBanner: false,
     initialRoute: '/home',
     defaultTransition: Transition.fadeIn,
@@ -72,8 +76,8 @@ class HomeController extends GetxController {
 
   final pages = <String>[
     '/main_home',
-    '/store',
     '/orders',
+    '/menu',
     '/chat',
   ];
 
@@ -92,7 +96,7 @@ class HomeController extends GetxController {
       );
     }
 
-    if (settings.name == '/store') {
+    if (settings.name == '/menu') {
       return GetPageRoute(
         settings: settings,
         page: () => StorePage(),
@@ -139,12 +143,12 @@ class HomePage extends GetView<HomeController> {
                 label: 'Home',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.store),
-                label: 'Store',
-              ),
-              BottomNavigationBarItem(
                 icon: Icon(Icons.delivery_dining_sharp),
                 label: 'Orders',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.store),
+                label: 'Menu',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.mark_chat_unread),

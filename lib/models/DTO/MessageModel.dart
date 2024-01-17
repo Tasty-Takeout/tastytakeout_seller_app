@@ -25,7 +25,7 @@ class MessageModel {
     );
   }
 
-  factory MessageModel.fromJsonWithoutImage(Map<String,dynamic> json) {
+  factory MessageModel.fromJsonWithoutImage(Map<String, dynamic> json) {
     return MessageModel(
       message: json['message'],
       sender: json['sender'],

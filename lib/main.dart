@@ -13,6 +13,7 @@ import '/views/screens/mainhome_screen.dart';
 import '/views/screens/orders_screen.dart';
 import '/views/screens/chat_screen.dart';
 import 'firebase_options.dart';
+import 'helper/date_helper.dart';
 
 Future<void> _handelMessage(RemoteMessage message) async {
   String payloadData = jsonEncode(message.data);
@@ -40,7 +41,7 @@ void main() async {
   ));
 
   await firebaseMessagingApi.init();
-  await firebaseMessagingApi.localNotiInit();
+  // await firebaseMessagingApi.localNotiInit();
 
   FirebaseMessaging.onBackgroundMessage(_handelMessage);
   FirebaseMessaging.onMessage.listen(_handelMessage);
@@ -137,6 +138,7 @@ class HomePage extends GetView<HomeController> {
       ),
       bottomNavigationBar: Obx(
         () => BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(Icons.home),

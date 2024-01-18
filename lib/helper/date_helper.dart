@@ -17,4 +17,8 @@ class DateHelper {
       return Date.OTHERDAY;
     }
   }
+
+  static int getDaysInMonth(DateTime date) {
+    return DateTime(date.year, date.month + 1, 0).day;
+  }
 }

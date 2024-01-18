@@ -37,51 +37,65 @@ class ChatPage extends StatelessWidget {
                 String lastMessage = "";
                 return ListView.builder(
                   padding: EdgeInsets.all(10),
-                  itemCount: items.length,
+                  itemCount: items.length + 1,
                   itemBuilder: (context, index) {
-                    if (items[index].sender == "STORE") {
-                      lastMessage = "You: " + items[index].newest_message;
-                    } else {
-                      lastMessage = items[index].newest_message;
-                    }
-                    return Ink(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
-                        //color: Color(0xff73b5c9),
-                        color: Colors.white,
-                      ),
-                      child: InkWell(
-                        overlayColor:
-                            MaterialStateProperty.resolveWith((states) {
-                          if (states.contains(MaterialState.pressed)) {
-                            return Color(0xff8692a2);
-                          }
-                          return Color(0xff73b5c9);
-                        }),
-                        onTap: () {
-                          print("Tapped on container $index");
-                          print(items[index]);
-                          Get.to(ChatDetailScreen(), arguments: {
-                            'chat_room_id': items[index].chat_room_id,
-                            'buyer_id': items[index].buyer.id,
-                            'buyer_name': items[index].buyer.name,
-                            'buyer_image_url': items[index].buyer.image_url,
-                            'store_image_url': items[index].store.image_url,
-                          })?.then((value) {
-                            viewModel.fetchChatList();
-                          });
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(0),
-                          child: ChatItems(
-                            UserName: (items.value)[index].buyer.name,
-                            UserMessage: lastMessage,
-                            UserImage: (items.value)[index].buyer.image_url,
-                            UserTime: (time.value)[index],
+                    if (index < items.length) {
+                      if (items[index].sender == "STORE") {
+                        lastMessage = "You: " + items[index].newest_message;
+                      } else {
+                        lastMessage = items[index].newest_message;
+                      }
+                      return Ink(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          //color: Color(0xff73b5c9),
+                          color: Colors.white,
+                        ),
+                        child: InkWell(
+                          overlayColor:
+                          MaterialStateProperty.resolveWith((states) {
+                            if (states.contains(MaterialState.pressed)) {
+                              return Color(0xff8692a2);
+                            }
+                            return Color(0xff73b5c9);
+                          }),
+                          onTap: () {
+                            print("Tapped on container $index");
+                            print(items[index]);
+                            Get.to(ChatDetailScreen(), arguments: {
+                              'chat_room_id': items[index].chat_room_id,
+                              'buyer_id': items[index].buyer.id,
+                              'buyer_name': items[index].buyer.name,
+                              'buyer_image_url': items[index].buyer.image_url,
+                              'store_image_url': items[index].store.image_url,
+                            })?.then((value) {
+                              viewModel.fetchChatList();
+                            });
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(0),
+                            child: ChatItems(
+                              UserName: (items.value)[index].buyer.name,
+                              UserMessage: lastMessage,
+                              UserImage: (items.value)[index].buyer.image_url,
+                              UserTime: (time.value)[index],
+                            ),
                           ),
                         ),
-                      ),
-                    );
+                      );
+                    } else {
+                      return Column(
+                        children: [
+                          Container(
+                            height: 200,
+                            width: 200,
+                            padding: EdgeInsets.all(5),
+                            child: Image.asset("lib/resources/gif/endOfChat.gif"),
+                          ),
+                          Text("Không còn tin nhắn nào nữa cả"),
+                        ],
+                      );
+                    }
                   },
                 );
               }

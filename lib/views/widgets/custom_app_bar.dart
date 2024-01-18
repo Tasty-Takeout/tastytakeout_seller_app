@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../screens/notification_screen.dart';
+
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final Function() onSearchPressed = () {
     //Get.to(SearchScreen());
   };
-  final Function() onNotificationPressed = () {};
+  final Function() onNotificationPressed = () {
+    Get.to(NotificationScreen());
+  };
   final Function() onUserPressed = () {
     if (Get.currentRoute != '/UserInfoPage') {
       //Get.to(UserInfoPage());

@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
 import 'package:tastytakeout_user_app/globals.dart';
-
+import '../data_sources/hardcode.dart' as data;
 import '../helper/date_helper.dart';
 import '../models/dto/ChatModel.dart';
 
@@ -12,8 +12,8 @@ class ChatScreenViewModel extends GetxController {
   var chatList = RxList<ChatModel>();
   var chatListDate = RxList<String>();
   final BASE_URL = 'http://${serverIp}/chat';
-  String token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxODg2OTQ2Mzg4LCJpYXQiOjE3MDU1MDYzODgsImp0aSI6ImQwZjM5NmJiOWJhMjQwYTliM2U5MDQzYTBhZDEwYWUwIiwidXNlcl9pZCI6MTEsInJvbGUiOiJTRUxMRVIiLCJzdG9yZV9pZCI6MX0.lrExYQDuWB1qoRaQYAvDDcKZjKhQU06u9hLBjYgA3NU';
+  String token = data.accessKey;
+
 
   @override
   void onInit() {

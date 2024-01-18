@@ -3,13 +3,14 @@ import 'dart:convert';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:http/http.dart';
+import '../data_sources/hardcode.dart' as data;
 
 class firebaseMessagingApi {
   static final _firebaseMessaging = FirebaseMessaging.instance;
   static final FlutterLocalNotificationsPlugin
   _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   static final BASE_URL = 'http://10.0.2.2:8000/users/fcm_token';
-  static final token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxODg2MDAyNDYwLCJpYXQiOjE3MDQ1NjI0NjAsImp0aSI6ImNmNzVkMmQ0MWY2NDQzZjg4M2M1NmJkNzU2NWI5NDk2IiwidXNlcl9pZCI6MTEsInJvbGUiOiJTRUxMRVIiLCJzdG9yZV9pZCI6Mn0.ewntBGHVz4Grgs5tb3JQqiZMkPwcrwNDHeavAgBLDSo';
+  static final token = data.accessKey;
   // request notification permission
 
   static Future init() async {
@@ -61,7 +62,7 @@ class firebaseMessagingApi {
     AndroidNotificationDetails(
         'high_importance_channel', 'your channel name',
         channelDescription: 'your channel description',
-        icon: '',
+        icon: 'tasty_takeout_icon',
         importance: Importance.max,
         priority: Priority.high,
         styleInformation: BigTextStyleInformation('',

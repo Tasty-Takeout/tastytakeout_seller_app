@@ -109,8 +109,8 @@ class FoodModel {
       "description": description,
       "price": price,
       "quantity": quantity,
-      "created_at": createdAt,
-      "rating": rating,
+      // "created_at": createdAt,
+      // "rating": rating,
       "store": storeId,
       "category": 1,
     };

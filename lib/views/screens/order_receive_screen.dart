@@ -87,6 +87,7 @@ class ReceiveOrderPage extends StatelessWidget {
                                 .status = data.REJECTED;
                             var result =
                                 _listOrdersViewModel.syncOrderInfo(index);
+                            Get.back();
                           },
                           onCancelBtnTap: () {
                             Get.back();

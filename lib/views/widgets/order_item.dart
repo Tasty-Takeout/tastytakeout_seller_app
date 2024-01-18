@@ -64,26 +64,29 @@ class OrderItemWidget extends GetWidget {
                       SizedBox(width: 8.0),
                       Icon(Icons.person_pin),
                       SizedBox(width: 15.0),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Người mua: ${_listOrdersViewModel.filteredOrderList[index].buyerName}',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                              'Địa chỉ: ${_listOrdersViewModel.filteredOrderList[index].address}'),
-                          Text(
-                              'Điện thoại: ${_listOrdersViewModel.filteredOrderList[index].phoneNumber}'),
-                          SizedBox(height: 12.0),
-                          Text(
-                              'Số món: ${_listOrdersViewModel.filteredOrderList[index].getQuantity()}'),
-                          Text(
-                              '${data.paymentMap[_listOrdersViewModel.filteredOrderList[index].paymentMethod]}: '
-                              '${formatHelper.formatMoney(_listOrdersViewModel.filteredOrderList[index].price)}'),
-                        ],
+                      Expanded(
+                        flex: 1,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Người mua: ${_listOrdersViewModel.filteredOrderList[index].buyerName}',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              maxLines: 1,overflow: TextOverflow.ellipsis,
+                            ),
+                            Text(
+                                'Địa chỉ: ${_listOrdersViewModel.filteredOrderList[index].address}',maxLines: 3,overflow: TextOverflow.ellipsis,),
+                            Text(
+                                'Điện thoại: ${_listOrdersViewModel.filteredOrderList[index].phoneNumber}',maxLines: 1,overflow: TextOverflow.ellipsis,),
+                            SizedBox(height: 12.0),
+                            Text(
+                                'Số món: ${_listOrdersViewModel.filteredOrderList[index].getQuantity()}',maxLines: 1,overflow: TextOverflow.ellipsis,),
+                            Text(
+                                '${data.paymentMap[_listOrdersViewModel.filteredOrderList[index].paymentMethod]}: '
+                                '${formatHelper.formatMoney(_listOrdersViewModel.filteredOrderList[index].price)}'),
+                          ],
+                        ),
                       ),
-                      Expanded(child: Container()),
                       GestureDetector(
                         onTap: () {
                           CoolAlert.show(

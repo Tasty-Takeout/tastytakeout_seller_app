@@ -34,6 +34,7 @@ class _MainHomePageState extends State<MainHomePage> {
     res.then((value) {
       storeName.value = value.name;
       storeId.value = value.id;
+      print('build main home' + storeId.value.toString());
     });
   }
   var viewModel = Get.find<MainHomeScreenViewModel>();

@@ -15,7 +15,7 @@ class ChatDetailScreenViewModel extends GetxController {
   final BASE_URL = 'http://${serverIp}/chat/';
   final BASE_URL_WS = 'ws://${serverIp}/ws/chat/';
   String token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxODg2MDAyNDYwLCJpYXQiOjE3MDQ1NjI0NjAsImp0aSI6ImNmNzVkMmQ0MWY2NDQzZjg4M2M1NmJkNzU2NWI5NDk2IiwidXNlcl9pZCI6MTEsInJvbGUiOiJTRUxMRVIiLCJzdG9yZV9pZCI6Mn0.ewntBGHVz4Grgs5tb3JQqiZMkPwcrwNDHeavAgBLDSo';
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxODg2OTQ2Mzg4LCJpYXQiOjE3MDU1MDYzODgsImp0aSI6ImQwZjM5NmJiOWJhMjQwYTliM2U5MDQzYTBhZDEwYWUwIiwidXNlcl9pZCI6MTEsInJvbGUiOiJTRUxMRVIiLCJzdG9yZV9pZCI6MX0.lrExYQDuWB1qoRaQYAvDDcKZjKhQU06u9hLBjYgA3NU';
   String chatRoom = '';
   late WebSocketChannel channel;
   final ScrollController scrollController = ScrollController();

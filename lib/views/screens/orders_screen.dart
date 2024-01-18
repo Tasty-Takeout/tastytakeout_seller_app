@@ -65,93 +65,93 @@ class _OrdersViewState extends State<OrdersView> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          padding: EdgeInsets.all(8.0),
-          margin: EdgeInsets.all(8.0),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: _ordersController.listOrdersViewModel.OrderStatus
-                  .map((type) => Padding(
-                        padding: EdgeInsets.fromLTRB(0, 0, 8.0, 0),
-                        child: FilterChip(
-                          selected: _ordersController
-                              .listOrdersViewModel.selectedStatus
-                              .contains(type),
-                          label: Text(data.mapStatus[type]!),
-                          onSelected: (selected) {
-                            setState(() {
-                              _ordersController
-                                  .listOrdersViewModel.selectedStatus
-                                  .clear();
-                              _ordersController
-                                  .listOrdersViewModel.selectedStatus
-                                  .add(type);
-                              _ordersController.listOrdersViewModel
-                                  .fetchOrders();
-                              _ordersController.listOrdersViewModel
-                                  .filterOrdersByStatus();
-                            });
-                          },
-                        ),
-                      ))
-                  .toList(),
+    return RefreshIndicator(
+      onRefresh: () async {
+        _ordersController.listOrdersViewModel.fetchOrders();
+        _ordersController.listOrdersViewModel.filterOrdersByStatus();
+      },
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.all(8.0),
+            margin: EdgeInsets.all(8.0),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: _ordersController.listOrdersViewModel.OrderStatus
+                    .map((type) => Padding(
+                          padding: EdgeInsets.fromLTRB(0, 0, 8.0, 0),
+                          child: FilterChip(
+                            selected: _ordersController
+                                .listOrdersViewModel.selectedStatus
+                                .contains(type),
+                            label: Text(data.mapStatus[type]!),
+                            onSelected: (selected) {
+                              setState(() {
+                                _ordersController
+                                    .listOrdersViewModel.selectedStatus
+                                    .clear();
+                                _ordersController
+                                    .listOrdersViewModel.selectedStatus
+                                    .add(type);
+                                _ordersController.listOrdersViewModel
+                                    .fetchOrders();
+                                _ordersController.listOrdersViewModel
+                                    .filterOrdersByStatus();
+                              });
+                            },
+                          ),
+                        ))
+                    .toList(),
+              ),
             ),
           ),
-        ),
-        Expanded(
-          child: Obx(
-            () {
-              if (_ordersController.listOrdersViewModel.isLoading.value ||
-                  _ordersController
+          Expanded(
+            child: Obx(
+              () {
+                if (_ordersController.listOrdersViewModel.isLoading.value ||
+                    _ordersController
+                        .listOrdersViewModel.filteredOrderList.isEmpty) {
+                  String notification = '';
+                  if (_ordersController.listOrdersViewModel.isLoading.value) {
+                    notification = 'Đang tải dữ liệu...';
+                  } else if (_ordersController
                       .listOrdersViewModel.filteredOrderList.isEmpty) {
-                String notification = '';
-                if (_ordersController.listOrdersViewModel.isLoading.value) {
-                  notification = 'Đang tải dữ liệu...';
-                } else if (_ordersController
-                    .listOrdersViewModel.filteredOrderList.isEmpty) {
-                  notification = 'Bạn chưa có đơn hàng nào!';
-                }
-                return Center(
-                    child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      'lib/resources/gif/loading.gif',
-                      width: 150,
-                      height: 150,
-                    ),
-                    Text(
-                      notification,
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                    notification = 'Bạn chưa có đơn hàng nào!';
+                  }
+                  return Center(
+                      child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'lib/resources/gif/loading.gif',
+                        width: 150,
+                        height: 150,
                       ),
-                    ),
-                  ],
-                ));
-              } else {
-                return RefreshIndicator(
-                    onRefresh: () async {
-                      _ordersController.listOrdersViewModel.fetchOrders();
-                      _ordersController.listOrdersViewModel
-                          .filterOrdersByStatus();
+                      Text(
+                        notification,
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ));
+                } else {
+                  return ListView.builder(
+                    padding: EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 8.0),
+                    itemCount: _ordersController
+                        .listOrdersViewModel.filteredOrderList.length,
+                    itemBuilder: (context, index) {
+                      return OrderItemWidget(index: index, isClickable: true);
                     },
-                    child: ListView.builder(
-                      padding: EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 8.0),
-                      itemCount: _ordersController
-                          .listOrdersViewModel.filteredOrderList.length,
-                      itemBuilder: (context, index) {
-                        return OrderItemWidget(index: index, isClickable: true);
-                      },
-                    ));
-              }
-            },
+                  );
+                }
+              },
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

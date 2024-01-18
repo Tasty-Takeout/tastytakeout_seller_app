@@ -1,2 +1,1 @@
-
-var serverIp = '192.168.1.11:8000';
+final String serverIp = '10.0.2.2:8080';
